@@ -35,51 +35,33 @@ export default function RegistrationForm() {
   };
 
   return (
-    <div className="w-full max-w-xl p-6 sm:p-8 space-y-6 bg-white rounded-2xl shadow-xl border border-gray-200"> {/* Added a subtle border */}
+    <div className="w-full max-w-xl p-6 sm:p-8 space-y-6 bg-white rounded-2xl shadow-xl border border-gray-200">
       <div className="text-center">
-        <h2 className="text-3xl font-bold text-gray-900">
-          Get Exclusive Access
-        </h2>
-        <p className="mt-2 text-gray-600">
-          Fill in your details to join our pre-launch list.
-        </p>
+        <h2 className="text-3xl font-bold text-gray-900">Get Exclusive Access</h2>
+        <p className="mt-2 text-gray-600">Fill in your details to join our pre-launch list.</p>
       </div>
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* All your form fields and buttons go here, no changes needed to the inside of the form */}
+        {/* ... (All fields above Police Station are correct) ... */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="fName" className="block text-sm font-medium text-gray-700">First Name *</label>
-            <input type="text" id="fName" name="fName" value={formData.fName} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
-          </div>
-          <div>
-            <label htmlFor="lName" className="block text-sm font-medium text-gray-700">Last Name</label>
-            <input type="text" id="lName" name="lName" value={formData.lName} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" />
-          </div>
+          <div><label htmlFor="fName" className="block text-sm font-medium text-gray-700">First Name *</label><input type="text" id="fName" name="fName" value={formData.fName} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required /></div>
+          <div><label htmlFor="lName" className="block text-sm font-medium text-gray-700">Last Name</label><input type="text" id="lName" name="lName" value={formData.lName} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" /></div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <div>
-            <label htmlFor="gender" className="block text-sm font-medium text-gray-700">Gender</label>
-            <select id="gender" name="gender" value={formData.gender} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500">
-              <option value="">Select...</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-              <option value="prefer_not_to_say">Prefer not to say</option>
-            </select>
-          </div>
-          <div>
-            <label htmlFor="dateBirth" className="block text-sm font-medium text-gray-700">Date of Birth *</label>
-            <input type="date" id="dateBirth" name="dateBirth" value={formData.dateBirth} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required />
-          </div>
+          <div><label htmlFor="gender" className="block text-sm font-medium text-gray-700">Gender</label><select id="gender" name="gender" value={formData.gender} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500"><option value="">Select...</option><option value="male">Male</option><option value="female">Female</option><option value="other">Other</option><option value="prefer_not_to_say">Prefer not to say</option></select></div>
+          <div><label htmlFor="dateBirth" className="block text-sm font-medium text-gray-700">Date of Birth *</label><input type="date" id="dateBirth" name="dateBirth" value={formData.dateBirth} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" required /></div>
         </div>
-        {/* ... The rest of your form fields are unchanged ... */}
-         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div><label htmlFor="phoneNo" className="block text-sm font-medium text-gray-700">Phone Number</label><input type="tel" id="phoneNo" name="phoneNo" value={formData.phoneNo} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" /></div>
+          <div><label htmlFor="email_ID" className="block text-sm font-medium text-gray-700">Email ID</label><input type="email" id="email_ID" name="email_ID" value={formData.email_ID} onChange={handleChange} className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-blue-500 focus:border-blue-500" /></div>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <input type="text" name="pincode" placeholder="Pincode" value={formData.pincode} onChange={handleChange} className="border p-2 rounded" />
           <input type="text" name="country" value={formData.country} className="border p-2 rounded bg-gray-100" readOnly />
           <input type="text" name="state" placeholder="State *" value={formData.state} onChange={handleChange} className="border p-2 rounded" required />
           <input type="text" name="district" placeholder="District *" value={formData.district} onChange={handleChange} className="border p-2 rounded" required />
           <input type="text" name="city" placeholder="City / Town *" value={formData.city} onChange={handleChange} className="border p-2 rounded" required />
-          <input type="text" name="policeStation" placeholder="Police Station" value={handleChange} className="border p-2 rounded" />
+          {/* CORRECTED LINE BELOW */}
+          <input type="text" name="policeStation" placeholder="Police Station" value={formData.policeStation} onChange={handleChange} className="border p-2 rounded" />
           <input type="text" name="postOffice" placeholder="Post Office" value={formData.postOffice} onChange={handleChange} className="border p-2 rounded" />
           <input type="text" name="locality" placeholder="Locality / Area *" value={formData.locality} onChange={handleChange} className="border p-2 rounded" required />
           <div className="md:col-span-2 grid grid-cols-1 sm:grid-cols-2 gap-4">
