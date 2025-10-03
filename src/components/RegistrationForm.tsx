@@ -137,13 +137,22 @@ export default function RegistrationForm() {
           </div>
         </div>
         
-        {/* --- Finalization --- */}
-        <div className="flex items-center space-x-3 pt-2">
-          <input type="checkbox" id="authorized" name="authorized" checked={formData.authorized} onChange={handleChange} className="h-4 w-4 text-blue-600 border-gray-300 rounded focus:ring-blue-500" />
+         {/* --- Finalization --- */}
+        <div className="flex items-start space-x-3 pt-2">
+          <input type="checkbox" id="authorized" name="authorized" checked={formData.authorized} onChange={handleChange} className="h-4 w-4 mt-1 text-blue-600 border-gray-300 rounded focus:ring-blue-500" required />
           <label htmlFor="authorized" className="text-sm text-gray-600">
-            I authorize Panacco to use the provided information.
+            I agree to the{' '}
+            <a href="/terms-of-service" target="_blank" className="font-medium text-blue-600 hover:underline">
+              Terms of Service
+            </a>{' '}
+            and{' '}
+            <a href="/privacy-policy" target="_blank"className="font-medium text-blue-600 hover:underline">
+              Privacy Policy
+            </a>{' '}
+            and consent to receive communications from Panacco.
           </label>
         </div>
+        
         <button type="submit" className="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors">
           Submit
         </button>
