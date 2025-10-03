@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function Header() {
   return (
-    <header className="w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
+    <header className="w-full bg-slate-50 border-b border-gray-200 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between p-4">
         {/* Text Logo */}
         <div className="text-3xl font-extrabold text-blue-700 tracking-tight">

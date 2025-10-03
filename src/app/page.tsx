@@ -10,7 +10,7 @@ export default function HomePage() {
       <Header />
 
       <main className="flex-grow">
-        {/* New High-Impact Hero Section */}
+        {/* High-Impact Hero Section */}
         <section 
           className="relative w-full h-[70vh] flex items-center justify-center text-center text-white bg-cover bg-center"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop')" }}
@@ -34,7 +34,8 @@ export default function HomePage() {
 
         {/* Form Section */}
         <section id="register-form" className="w-full py-16 sm:py-24 bg-gray-100 flex justify-center">
-          <div className="container px-4">
+          {/* THE FIX IS ON THE LINE BELOW: Added flex and justify-center */}
+          <div className="container px-4 flex justify-center">
             <RegistrationForm />
           </div>
         </section>
