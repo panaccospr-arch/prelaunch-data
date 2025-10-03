@@ -4,10 +4,10 @@ import Link from 'next/link';
 
 export default function Header() {
   return (
-    <header className="w-full bg-white border-b border-gray-200 sticky top-0 z-50 py-3"> {/* Softer border */}
+    <header className="w-full bg-white/95 backdrop-blur-sm border-b border-gray-200 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between p-4">
         {/* Text Logo */}
-        <div className="text-3xl font-extrabold text-blue-700 tracking-tight"> {/* Calmer blue for logo */}
+        <div className="text-3xl font-extrabold text-blue-700 tracking-tight">
           <Link href="/">Panacco</Link>
         </div>
 
