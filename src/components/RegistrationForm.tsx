@@ -1,9 +1,9 @@
 // src/components/RegistrationForm.tsx
 
-'use client'; 
+'use client';
 
-import React, 'useState'
-;
+import React, { useState } from 'react';
+
 // Define a type for our form data for better code safety
 interface FormData {
   fName: string;
@@ -54,7 +54,7 @@ export default function RegistrationForm() {
 
   // Function to handle the form submission
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); 
+    e.preventDefault();
     console.log('Form Submitted!', formData);
     alert('Thank you for registering!');
   };
