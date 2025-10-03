@@ -1,7 +1,7 @@
 // src/components/Header.tsx
 
 import Link from 'next/link';
-import Image from 'next/image'; // Import the Image component
+import Image from 'next/image';
 
 export default function Header() {
   return (
@@ -11,11 +11,11 @@ export default function Header() {
         <div className="text-2xl font-bold text-blue-700">
           <Link href="/">
             <Image
-              src="/images/panacco-logo.png" // Path to your uploaded logo
+              src="/images/panacco-logo.png" // Assumes your logo is at public/images/panacco-logo.png
               alt="Panacco Real Estate Service Logo"
-              width={150} // Adjust width as needed
-              height={50}  // Adjust height as needed
-              priority // Prioritize loading for LCP
+              width={150}
+              height={50}
+              priority
             />
           </Link>
         </div>
