@@ -10,7 +10,7 @@ export default function HomePage() {
       <Header />
 
       <main className="flex-grow">
-        {/* New High-Impact Hero Section */}
+        {/* High-Impact Hero Section */}
         <section 
           className="relative w-full h-[70vh] flex items-center justify-center text-center text-white bg-cover bg-center"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=2070&auto=format&fit=crop')" }}
@@ -20,8 +20,9 @@ export default function HomePage() {
             <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight drop-shadow-lg">
               Your Story Begins at Home.
             </h1>
+            {/* CORRECTED LINE BELOW - Removed apostrophe */}
             <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-gray-200 drop-shadow-md">
-              Help us map the future of real estate in India. By sharing details of areas you know, you're building a more transparent market for everyone.
+              Help us map the future of real estate in India. By sharing details of areas you know, you are building a more transparent market for everyone.
             </p>
             <a 
               href="#register-form" 
@@ -43,7 +44,6 @@ export default function HomePage() {
               <RegistrationForm />
             </div>
             
-            {/* New section for encouraging registration/following */}
             <div className="mt-16 text-center max-w-3xl mx-auto">
               <h3 className="text-2xl font-bold text-gray-800">Want Future Updates & Benefits?</h3>
               <p className="mt-3 text-gray-600">
