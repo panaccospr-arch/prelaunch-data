@@ -10,11 +10,11 @@ export default function Footer() {
         
         {/* Logo and Copyright */}
          <div className="flex flex-col items-center sm:items-start mb-6 sm:mb-0"> 
-        {/*  <Image */}
-           {/* src="/images/panacco-logo.png" */}
-           {/* alt="Panacco Logo" */}
-           {/* width={120} */}
-           {/* height={40} */}
+        <Image 
+            src="/images/panacco-logo.png"
+            alt="Panacco Logo"
+            width={120} 
+            height={40} 
           />
           <p className="mt-2 text-sm text-gray-500">
             © {new Date().getFullYear()} Panacco. All rights reserved.
