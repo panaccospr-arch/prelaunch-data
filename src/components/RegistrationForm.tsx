@@ -149,7 +149,7 @@ export default function RegistrationForm() {
             <a href="/privacy-policy" target="_blank"className="font-medium text-blue-600 hover:underline">
               Privacy Policy
             </a>{' '}
-            and consent to receive communications from Panacco.
+            and consent to receive communications from Panacco or respective authorities.
           </label>
         </div>
         
