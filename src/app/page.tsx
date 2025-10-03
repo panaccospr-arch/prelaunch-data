@@ -7,7 +7,7 @@ export default function HomePage() {
         
         {/* Main Heading */}
         <h1 className="text-4xl font-extrabold tracking-tight md:text-6xl lg:text-7xl">
-          The Ultimate Platform for Your Needs
+          The Ultimate Platform for Your Real Estate Needs
         </h1>
 
         {/* Subheading */}
