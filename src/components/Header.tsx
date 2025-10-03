@@ -13,8 +13,8 @@ export default function Header() {
             <Image
               src="/images/panacco-logo.png" // Assumes your logo is at public/images/panacco-logo.png
               alt="Panacco Real Estate Service Logo"
-              width={150}
-              height={50}
+              width={50}
+              height={35}
               priority
             />
           </Link>
