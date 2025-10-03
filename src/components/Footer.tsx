@@ -3,16 +3,45 @@ import Link from 'next/link';
 
 export default function Footer() {
   return (
-    <footer className="w-full bg-gray-50 border-t py-6">
-      <div className="container mx-auto px-4 flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
-        <div className="text-center md:text-left">
-          <p className="text-sm text-gray-500">&copy; {new Date().getFullYear()} Panacco. All rights reserved.</p>
+    <footer className="w-full bg-gray-900 text-gray-300 py-8 px-4"> {/* Darker, richer footer background */}
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between space-y-6 md:space-y-0">
+        
+        {/* Text Logo & Copyright */}
+        <div className="flex flex-col items-center md:items-start">
+          <div className="text-3xl font-extrabold text-blue-400 tracking-tight mb-2">
+            Panacco
+          </div>
+          <p className="text-sm text-gray-400">
+            &copy; {new Date().getFullYear()} Panacco. All rights reserved.
+          </p>
         </div>
-        <div className="flex items-center space-x-5">
-          {/* Social Icons will go here, they are unchanged from the previous step */}
-           <a href="#" aria-label="Facebook" className="text-gray-400 hover:text-blue-600"><svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z" /></svg></a>
-           <a href="#" aria-label="LinkedIn" className="text-gray-400 hover:text-blue-700"><svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.98v16h4.98v-8.399c0-2.022.984-3.125 2.443-3.125 1.25 0 2.063.859 2.415 1.688v9.836h4.98v-10.239c0-3.606-2.208-5.761-5.138-5.761-2.005 0-3.435 1.126-4.08 2.158h-.058v-1.808h-4.98v16h4.98v-8.399z" /></svg></a>
-           <a href="#" aria-label="X (Twitter)" className="text-gray-400 hover:text-black"><svg className="h-6 w-6" fill="currentColor" viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24h-6.627l-5.21-6.815-6.041 6.815h-3.308l7.738-8.835-8.332-10.67h6.78l4.593 6.131 5.434-6.131zm-1.156 19.45h1.838l-13.886-18.3h-1.956l13.998 18.3z" /></svg></a>
+        
+        {/* Social Media Icons */}
+        <div className="flex flex-wrap justify-center md:justify-end gap-5"> {/* Increased gap for spacing */}
+          {/* Facebook */}
+          <a href="#" aria-label="Facebook" className="text-gray-400 hover:text-blue-600 transition-colors">
+            <svg className="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"><path d="M9 8h-3v4h3v12h5v-12h3.642l.358-4h-4v-1.667c0-.955.192-1.333 1.115-1.333h2.885v-5h-3.808c-3.596 0-5.192 1.583-5.192 4.615v2.385z" /></svg>
+          </a>
+          {/* LinkedIn */}
+          <a href="#" aria-label="LinkedIn" className="text-gray-400 hover:text-blue-700 transition-colors">
+            <svg className="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"><path d="M4.98 3.5c0 1.381-1.11 2.5-2.48 2.5s-2.48-1.119-2.48-2.5c0-1.38 1.11-2.5 2.48-2.5s2.48 1.12 2.48 2.5zm.02 4.5h-5v16h5v-16zm7.982 0h-4.98v16h4.98v-8.399c0-2.022.984-3.125 2.443-3.125 1.25 0 2.063.859 2.415 1.688v9.836h4.98v-10.239c0-3.606-2.208-5.761-5.138-5.761-2.005 0-3.435 1.126-4.08 2.158h-.058v-1.808h-4.98v16h4.98v-8.399z" /></svg>
+          </a>
+          {/* Instagram */}
+          <a href="#" aria-label="Instagram" className="text-gray-400 hover:text-pink-500 transition-colors">
+            <svg className="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.07 1.646.07 4.85s-.012 3.584-.07 4.85c-.148 3.228-1.667 4.747-4.919 4.919-.058 1.265-.07 1.646-.07 4.85s.012 3.584.07 4.85c.148 3.252 1.691 4.771 4.919 4.919 1.265.058 1.646.07 4.85.07s3.584-.012 4.85-.07c3.228-.148 4.747-1.667 4.919-4.919.058-1.265.07-1.646.07-4.85s-.012-3.584-.07-4.85c-.148-3.252-1.691-4.771-4.919-4.919-1.265-.058-1.646-.07-4.85-.07zm0 2.163c-3.252 0-3.662.013-4.952.071-3.242.146-4.731 1.673-4.877 4.877-.058 1.29-.071 1.7-.071 4.952s.013 3.662.071 4.952c.146 3.242 1.673 4.731 4.877 4.877 1.29.058 1.7.071 4.952.071s3.662-.013 4.952-.071c3.242-.146 4.731-1.673 4.877-4.877.058-1.29.071-1.7.071-4.952s-.013-3.662-.071-4.952c-.146-3.242-1.673-4.731-4.877-4.877-1.29-.058-1.7-.071-4.952-.071zm0 4.163c2.209 0 4 1.791 4 4s-1.791 4-4 4-4-1.791-4-4 1.791-4 4-4zm0 2.163c-1.196 0-2 1.004-2 2s.804 2 2 2 2-1.004 2-2-.804-2-2-2zm6.204-6.204h.01v.011h-.01v-.011z" /></svg>
+          </a>
+          {/* YouTube */}
+          <a href="#" aria-label="YouTube" className="text-gray-400 hover:text-red-600 transition-colors">
+            <svg className="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"><path d="M19.615 3.184c-3.604-.246-11.631-.246-15.23 0-3.805.263-4.184 2.62-4.184 4.856v8.432c0 2.237.379 4.593 4.184 4.856 3.6.246 11.626.246 15.23 0 3.805-.263 4.184-2.62 4.184-4.856v-8.432c0-2.236-.379-4.593-4.184-4.856zm-11.515 8.928v-3.32h-1.928v3.32h-1.928v1.928h1.928v3.32h1.928v-3.32h1.928v-1.928h-1.928zm8.17 0v-3.32h-1.928v3.32h-1.928v1.928h1.928v3.32h1.928v-3.32h1.928v-1.928h-1.928zm-3.845 0v-3.32h-1.928v3.32h-1.928v1.928h1.928v3.32h1.928v-3.32h1.928v-1.928h-1.928z" /><path d="M9.37 12.008l4.425-2.556v5.112l-4.425-2.556z" fill="#fff" /></svg>
+          </a>
+          {/* WhatsApp */}
+          <a href="#" aria-label="WhatsApp" className="text-gray-400 hover:text-green-500 transition-colors">
+            <svg className="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181 0 6.17.635 8.824 1.831 7.297 3.069 9.619 11.722 6.842 16.632-1.637 2.909-4.891 4.966-8.82 4.966h-.001c-2.977 0-5.734-1.107-7.857-3.037l-6.162 1.687zm6.55-1.901c1.325.354 2.828.535 4.341.535h.001c3.617 0 6.92-1.385 9.076-4.062 1.468-1.789 2.148-4.113 2.148-6.611 0-5.263-4.301-9.564-9.565-9.564-2.28 0-4.444.829-6.177 2.457-1.45.981-2.091 2.373-2.215 3.32l-.022.099-.54 2.152 1.689 6.162.001.003zM11.893 5.438c-3.188 0-5.786 2.597-5.786 5.786 0 1.933.901 3.73 2.481 4.98l.001.001c.219.176.402.348.544.471l1.782.915c.348.178.761.084.992-.224l.001-.001c.231-.308.231-.762 0-1.07l-.993-.915c-.142-.123-.325-.295-.544-.471l-.001-.001c-1.58-1.25-2.481-3.047-2.481-4.98 0-1.868 1.518-3.386 3.386-3.386 1.868 0 3.386 1.518 3.386 3.386 0 .565-.084 1.129-.25 1.671-.166.542-.395 1.055-.688 1.543l.001.001c-.131.218-.179.487-.139.734l.056.331c.071.411.395.734.806.806l.331.056c.247.04.516-.008.734-.139l.001-.001c.488-.293 1.001-.522 1.543-.688.542-.166 1.106-.25 1.671-.25 3.188 0 5.786 2.597 5.786 5.786 0 3.188-2.597 5.786-5.786 5.786-1.58 0-3.056-.628-4.226-1.74l-.002-.001c-.244-.229-.533-.357-.847-.384l-2.152-.54c-.411-.071-.734.253-.806.664l-.056.331c-.04.247.008.516.139.734l.001.001c.981 1.633 2.373 2.977 3.829 3.978l.001.001c1.23.829 2.656 1.452 4.225 1.452z" /></svg>
+          </a>
+          {/* Telegram */}
+          <a href="#" aria-label="Telegram" className="text-gray-400 hover:text-blue-400 transition-colors">
+            <svg className="h-7 w-7" fill="currentColor" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm6.5 8.114l-2.793 11.233c-.249 1.009-.894 1.157-1.747.794l-3.359-2.476-1.423 1.371c-.161.161-.295.295-.625.295l.487-3.291 5.925-5.397c.486-.432-.119-.661-.75-.249l-7.234 4.505-3.23-1.011c-.99-.311-1.026-.96-.168-1.282l15.353-5.917c.87-.333 1.666.241 1.341 1.49z" /></svg>
+          </a>
         </div>
       </div>
     </footer>
