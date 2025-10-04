@@ -5,7 +5,8 @@ import EmailProvider from "next-auth/providers/email";
 
 const prisma = new PrismaClient()
 
-export const authOptions = {
+// "export" has been removed from the line below
+const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     EmailProvider({
