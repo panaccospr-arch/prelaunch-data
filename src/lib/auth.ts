@@ -22,5 +22,14 @@ export const authOptions: NextAuthOptions = {
   ],
   pages: {
     signIn: '/login',
-  }
+  },
+  // Add the callbacks section here
+  callbacks: {
+    session({ session, user }) {
+      if (session.user) {
+        session.user.id = user.id; // Add the user ID to the session
+      }
+      return session;
+    },
+  },
 }
