@@ -8,6 +8,8 @@ export default function LoginPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [message, setMessage] = useState('');
 
+  // Inside src/app/login/page.tsx
+
   const handleEmailSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -17,6 +19,7 @@ export default function LoginPage() {
       setMessage('A magic link has been sent to your email!');
     } catch (error) {
       setMessage('An error occurred. Please try again.');
+      console.error(error); // <-- Add this line here
     } finally {
       setIsSubmitting(false);
     }

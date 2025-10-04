@@ -3,18 +3,18 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '@/lib/auth'; // Correctly import from our shared file
+import { authOptions } from '@/lib/auth';
 
 const prisma = new PrismaClient();
 
-// ... the rest of the file is the same as before
 const ANON_SUBMISSION_LIMIT = 10;
 const VERIFIED_SUBMISSION_LIMIT = 30;
 
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    const ip = request.ip ?? request.headers.get('x-forwarded-for') ?? 'unknown';
+    // CORRECTED LINE BELOW - Removed `request.ip`
+    const ip = request.headers.get('x-forwarded-for') ?? 'unknown';
     const data = await request.json();
 
     const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
@@ -22,26 +22,16 @@ export async function POST(request: NextRequest) {
     let submissionCount = 0;
 
     if (session?.user?.id) {
-      // User is logged in, check by userId
       submissionCount = await prisma.submission.count({
-        where: {
-          userId: session.user.id,
-          createdAt: { gte: twentyFourHoursAgo },
-        },
+        where: { userId: session.user.id, createdAt: { gte: twentyFourHoursAgo } },
       });
-
       if (submissionCount >= VERIFIED_SUBMISSION_LIMIT) {
         return NextResponse.json({ message: 'Daily submission limit reached.' }, { status: 429 });
       }
     } else {
-      // User is anonymous, check by IP address
       submissionCount = await prisma.submission.count({
-        where: {
-          ipAddress: ip,
-          createdAt: { gte: twentyFourHoursAgo },
-        },
+        where: { ipAddress: ip, createdAt: { gte: twentyFourHoursAgo } },
       });
-
       if (submissionCount >= ANON_SUBMISSION_LIMIT) {
         return NextResponse.json({ message: 'Daily submission limit reached.' }, { status: 429 });
       }
