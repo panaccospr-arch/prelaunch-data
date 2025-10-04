@@ -6,8 +6,8 @@ import { useState } from 'react';
 type FormInputs = {
   fName: string;
   lName: string;
-  email: string; // Added field
-  phone: string; // Added field
+  email: string;
+  phone: string;
   gender: string;
   dateOfBirth: string;
   pincode: string;
@@ -26,10 +26,12 @@ export default function RegistrationForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState('');
 
+  // 1. We now need the `getValues` function from the hook
   const { 
     register, 
     handleSubmit, 
-    formState: { errors } 
+    formState: { errors },
+    getValues // <-- Added this
   } = useForm<FormInputs>({
     defaultValues: {
       country: "Bharat (India)"
@@ -37,6 +39,7 @@ export default function RegistrationForm() {
   });
 
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
+    // ... (This function remains the same as before)
     setIsSubmitting(true);
     setSubmitMessage('');
 
@@ -70,34 +73,46 @@ export default function RegistrationForm() {
       
       <form noValidate onSubmit={handleSubmit(onSubmit)} className="space-y-6">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {/* First Name */}
-          <div>
-            <label htmlFor="fName" className="block text-sm font-medium text-gray-300">First Name *</label>
-            <input id="fName" {...register("fName", { required: "First name is required." })} className="mt-1 block w-full input-style" />
-            {errors.fName && <p className="mt-1 text-sm text-red-400">{errors.fName.message}</p>}
-          </div>
+          {/* First Name & Last Name ... */}
+          <div><label htmlFor="fName" className="block text-sm font-medium text-gray-300">First Name *</label><input id="fName" {...register("fName", { required: "First name is required." })} className="mt-1 block w-full input-style" />{errors.fName && <p className="mt-1 text-sm text-red-400">{errors.fName.message}</p>}</div>
+          <div><label htmlFor="lName" className="block text-sm font-medium text-gray-300">Last Name</label><input id="lName" {...register("lName")} className="mt-1 block w-full input-style" /></div>
 
-          {/* Last Name */}
+          {/* Email - UPDATED VALIDATION */}
           <div>
-            <label htmlFor="lName" className="block text-sm font-medium text-gray-300">Last Name</label>
-            <input id="lName" {...register("lName")} className="mt-1 block w-full input-style" />
-          </div>
-
-          {/* Email */}
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-gray-300">Email *</label>
-            <input id="email" type="email" {...register("email", { required: "Email is required.", pattern: { value: /^\S+@\S+$/i, message: "Invalid email address." } })} className="mt-1 block w-full input-style" />
+            <label htmlFor="email" className="block text-sm font-medium text-gray-300">Email</label>
+            <input 
+              id="email" 
+              type="email" 
+              {...register("email", {
+                // 2. Updated validation logic
+                validate: {
+                  required: (value) => !!value || !!getValues('phone') || 'Either Email or Phone is required.',
+                  isEmail: (value) => !value || /^\S+@\S+$/i.test(value) || 'Invalid email address.'
+                }
+              })} 
+              className="mt-1 block w-full input-style" 
+            />
             {errors.email && <p className="mt-1 text-sm text-red-400">{errors.email.message}</p>}
           </div>
 
-          {/* Phone */}
+          {/* Phone - UPDATED VALIDATION */}
           <div>
-            <label htmlFor="phone" className="block text-sm font-medium text-gray-300">Phone *</label>
-            <input id="phone" type="tel" {...register("phone", { required: "Phone number is required." })} className="mt-1 block w-full input-style" />
+            <label htmlFor="phone" className="block text-sm font-medium text-gray-300">Phone</label>
+            <input 
+              id="phone" 
+              type="tel" 
+              {...register("phone", {
+                // 3. Updated validation logic
+                validate: {
+                  required: (value) => !!value || !!getValues('email') || 'Either Email or Phone is required.'
+                }
+              })} 
+              className="mt-1 block w-full input-style" 
+            />
             {errors.phone && <p className="mt-1 text-sm text-red-400">{errors.phone.message}</p>}
           </div>
-
-          {/* Other fields... */}
+          
+          {/* Other fields remain the same... */}
           <div><label htmlFor="gender" className="block text-sm font-medium text-gray-300">Gender *</label><select id="gender" {...register("gender", { required: "Please select a gender." })} className="mt-1 block w-full input-style"><option value="">Select...</option><option value="male">Male</option><option value="female">Female</option><option value="other">Other</option></select>{errors.gender && <p className="mt-1 text-sm text-red-400">{errors.gender.message}</p>}</div>
           <div><label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-300">Date of Birth *</label><input type="date" id="dateOfBirth" {...register("dateOfBirth", { required: "Date of Birth is required." })} className="mt-1 block w-full input-style" />{errors.dateOfBirth && <p className="mt-1 text-sm text-red-400">{errors.dateOfBirth.message}</p>}</div>
           <div><label htmlFor="pincode" className="block text-sm font-medium text-gray-300">Pincode *</label><input id="pincode" {...register("pincode", { required: "Pincode is required." })} className="mt-1 block w-full input-style" />{errors.pincode && <p className="mt-1 text-sm text-red-400">{errors.pincode.message}</p>}</div>
