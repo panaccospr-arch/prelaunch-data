@@ -55,12 +55,15 @@ export default function RegistrationForm() {
         throw new Error(result.message || 'Something went wrong');
       }
 
-      setSubmitMessage('Submission successful! Thank you for your contribution.');
-      // Optionally, you can reset the form here
-      // reset(); 
+      setSubmitMessage('Submission successful! We truly appreciate your contribution.');
 
-    } catch (error: any) {
-      setSubmitMessage(`Error: ${error.message}`);
+    } catch (error) {
+      // This is the updated, type-safe error handling
+      if (error instanceof Error) {
+        setSubmitMessage(`Error: ${error.message}`);
+      } else {
+        setSubmitMessage('An unknown error occurred.');
+      }
     } finally {
       setIsSubmitting(false);
     }
