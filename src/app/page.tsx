@@ -22,7 +22,7 @@ export default function HomePage() {
             </h1>
             {/* CORRECTED LINE BELOW - Removed apostrophe */}
             <p className="mt-6 max-w-3xl mx-auto text-lg md:text-xl text-gray-200 drop-shadow-md">
-              Help us map the future of real estate in India. By sharing details of areas you know, you are building a more transparent market for everyone.
+              Help us map the future of real estate in Bharat ( India ). By sharing details of areas you know, you are building a more transparent market for everyone.
             </p>
             <a 
               href="#register-form" 
