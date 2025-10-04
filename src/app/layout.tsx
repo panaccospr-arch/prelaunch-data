@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import AuthProvider from "./components/AuthProvider";
-import Header from "./components/Header";
-import Footer from "./components/Footer"; // 1. Import the Footer
+import AuthProvider from "@/components/AuthProvider"; // Use alias
+import Header from "@/components/Header";           // Use alias
+import Footer from "@/components/Footer";           // Use alias
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,7 +25,7 @@ export default function RootLayout({
           <main className="flex-grow container mx-auto p-4">
             {children}
           </main>
-          <Footer /> {/* 2. Add the Footer component here */}
+          <Footer />
         </AuthProvider>
       </body>
     </html>
