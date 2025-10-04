@@ -3,10 +3,11 @@
 import { NextResponse, NextRequest } from 'next/server';
 import { PrismaClient } from '@prisma/client';
 import { getServerSession } from 'next-auth';
-import { authOptions } from '../auth/[...nextauth]/route'; // Adjust path if needed
+import { authOptions } from '@/lib/auth'; // Correctly import from our shared file
 
 const prisma = new PrismaClient();
 
+// ... the rest of the file is the same as before
 const ANON_SUBMISSION_LIMIT = 10;
 const VERIFIED_SUBMISSION_LIMIT = 30;
 
@@ -46,26 +47,16 @@ export async function POST(request: NextRequest) {
       }
     }
     
-    // --- Create the submission ---
-    
-    // Convert date string to Date object
     if (data.dateOfBirth) {
       data.dateOfBirth = new Date(data.dateOfBirth);
     }
 
     const newSubmission = await prisma.submission.create({
       data: {
-        // Spread the form data
         ...data,
-        // Add the IP address
         ipAddress: ip,
-        // Conditionally connect the userId if the user is logged in
         ...(session?.user?.id && {
-          user: {
-            connect: {
-              id: session.user.id,
-            },
-          },
+          user: { connect: { id: session.user.id } },
         }),
       },
     });
