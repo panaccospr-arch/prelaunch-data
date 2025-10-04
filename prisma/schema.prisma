@@ -1,0 +1,35 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Defines the structure for our user registration data
+model UserRegistration {
+  id              String   @id @default(cuid())
+  createdAt       DateTime @default(now())
+  
+  fName           String
+  lName           String? // The '?' makes this field optional
+  gender          String
+  dateOfBirth     DateTime
+  pincode         String
+  country         String   @default("Bharat (India)")
+  state           String
+  district        String
+  city            String
+  policeStation   String?
+  postOffice      String?
+  locality        String
+  landmark        String?
+  
+  // We will add email and phone later for duplicate checks
+  // email           String   @unique
+  // phone           String   @unique
+}

@@ -1,7 +1,6 @@
 'use client';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useState } from 'react'; // Import useState for loading states
 
 // Define the structure for ALL form fields
 type FormInputs = {
@@ -22,48 +21,18 @@ type FormInputs = {
 };
 
 export default function RegistrationForm() {
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitMessage, setSubmitMessage] = useState('');
-
   const { 
     register, 
     handleSubmit, 
     formState: { errors } 
   } = useForm<FormInputs>({
     defaultValues: {
-      country: "Bharat (India)"
+      country: "Bharat (India)" // Set default value for the country
     }
   });
 
-  // THIS IS THE UPDATED FUNCTION
-  const onSubmit: SubmitHandler<FormInputs> = async (data) => {
-    setIsSubmitting(true);
-    setSubmitMessage('');
-
-    try {
-      const response = await fetch('/api/register', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(data),
-      });
-
-      const result = await response.json();
-
-      if (!response.ok) {
-        throw new Error(result.message || 'Something went wrong');
-      }
-
-      setSubmitMessage('Submission successful! Thank you for your contribution.');
-      // Optionally, you can reset the form here
-      // reset(); 
-
-    } catch (error: any) {
-      setSubmitMessage(`Error: ${error.message}`);
-    } finally {
-      setIsSubmitting(false);
-    }
+  const onSubmit: SubmitHandler<FormInputs> = (data) => {
+    console.log("Form is valid! Submitting data:", data);
   };
 
   return (
@@ -72,7 +41,6 @@ export default function RegistrationForm() {
       <p className="text-center text-gray-400 mb-6">Fields marked with * are required.</p>
       
       <form noValidate onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* All form fields remain the same as before... */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* First Name */}
           <div>
@@ -182,13 +150,10 @@ export default function RegistrationForm() {
         
         {/* Submit Button */}
         <div>
-          <button type="submit" disabled={isSubmitting} className="w-full submit-button-style disabled:bg-gray-500">
-            {isSubmitting ? 'Submitting...' : 'Submit Information'}
+          <button type="submit" className="w-full submit-button-style">
+            Submit Information
           </button>
         </div>
-
-        {/* Submission Message */}
-        {submitMessage && <p className="text-center text-green-400">{submitMessage}</p>}
       </form>
     </div>
   );
