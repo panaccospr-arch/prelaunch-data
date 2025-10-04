@@ -20,11 +20,11 @@ export async function POST(request: Request) {
     });
 
     // Send a success response back to the form
-    return NextResponse.json({ message: 'Registration successful!', user: newUser }, { status: 201 });
+    return NextResponse.json({ message: 'Data submitted successfully !', user: newUser }, { status: 201 });
 
   } catch (error) {
     // If an error occurs, send back an error response
     console.error(error);
-    return NextResponse.json({ message: 'Error creating registration.' }, { status: 500 });
+    return NextResponse.json({ message: 'Error submitting details to the database..' }, { status: 500 });
   }
 }
