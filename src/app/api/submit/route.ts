@@ -13,23 +13,21 @@ const VERIFIED_SUBMISSION_LIMIT = 30;
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions);
-    // CORRECTED LINE BELOW - Removed `request.ip`
     const ip = request.headers.get('x-forwarded-for') ?? 'unknown';
-    const data = await request.json();
+    const body = await request.json();
 
     const twentyFourHoursAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
 
-    let submissionCount = 0;
-
+    // Rate limiting logic (remains the same)
     if (session?.user?.id) {
-      submissionCount = await prisma.submission.count({
+      const submissionCount = await prisma.submission.count({
         where: { userId: session.user.id, createdAt: { gte: twentyFourHoursAgo } },
       });
       if (submissionCount >= VERIFIED_SUBMISSION_LIMIT) {
         return NextResponse.json({ message: 'Daily submission limit reached.' }, { status: 429 });
       }
     } else {
-      submissionCount = await prisma.submission.count({
+      const submissionCount = await prisma.submission.count({
         where: { ipAddress: ip, createdAt: { gte: twentyFourHoursAgo } },
       });
       if (submissionCount >= ANON_SUBMISSION_LIMIT) {
@@ -37,18 +35,31 @@ export async function POST(request: NextRequest) {
       }
     }
     
-    if (data.dateOfBirth) {
-      data.dateOfBirth = new Date(data.dateOfBirth);
-    }
+    // --- THIS IS THE CORRECTED LOGIC ---
+    
+    // 1. Destructure all fields from the form body
+    const { 
+      fName, lName, gender, dateOfBirth, pincode, 
+      country, state, district, city, policeStation, 
+      postOffice, locality, landmark, agreeToTerms 
+    } = body;
 
+    // 2. Build the final data object for Prisma in a type-safe way
+    const dataForPrisma = {
+      fName, lName, gender,
+      dateOfBirth: new Date(dateOfBirth),
+      pincode, country, state, district, city,
+      policeStation, postOffice, locality, landmark,
+      ipAddress: ip,
+      // Conditionally connect to a user if a session exists
+      user: session?.user?.id 
+        ? { connect: { id: session.user.id } } 
+        : undefined,
+    };
+    
+    // 3. Create the submission with the clean, correctly typed data
     const newSubmission = await prisma.submission.create({
-      data: {
-        ...data,
-        ipAddress: ip,
-        ...(session?.user?.id && {
-          user: { connect: { id: session.user.id } },
-        }),
-      },
+      data: dataForPrisma,
     });
 
     return NextResponse.json({ message: 'Submission successful!', submission: newSubmission }, { status: 201 });
