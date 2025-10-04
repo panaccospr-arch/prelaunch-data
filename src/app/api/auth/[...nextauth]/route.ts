@@ -10,11 +10,13 @@ const authOptions = {
   adapter: PrismaAdapter(prisma),
   providers: [
     EmailProvider({
-      server: process.env.RESEND_API_KEY, // This uses the key we just added
-      from: "onboarding@resend.dev" // A default "from" address by Resend
+      server: process.env.RESEND_API_KEY,
+      from: "onboarding@resend.dev"
     }),
-    // We will add Google, etc. here later
   ],
+  pages: {
+    signIn: '/login', // Tells Auth.js to use our custom page at /login
+  }
 }
 
 const handler = NextAuth(authOptions)
