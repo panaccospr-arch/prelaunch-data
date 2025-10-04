@@ -29,7 +29,10 @@ model UserRegistration {
   locality        String
   landmark        String?
   
-  // We will add email and phone later for duplicate checks
+  // add email and phone later for duplicate checks
   email           String   @unique
   phone           String   @unique
+
+  // terms and condition should be added in the data schema.
+  agreeToTerms    Boolean  // <-- The missing field
 }
