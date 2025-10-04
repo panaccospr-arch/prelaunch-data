@@ -30,6 +30,6 @@ model UserRegistration {
   landmark        String?
   
   // We will add email and phone later for duplicate checks
-  // email           String   @unique
-  // phone           String   @unique
+  email           String   @unique
+  phone           String   @unique
 }

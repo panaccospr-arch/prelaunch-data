@@ -1,12 +1,13 @@
 'use client';
 
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { useState } from 'react'; // Import useState for loading states
+import { useState } from 'react';
 
-// Define the structure for ALL form fields
 type FormInputs = {
   fName: string;
   lName: string;
+  email: string; // Added field
+  phone: string; // Added field
   gender: string;
   dateOfBirth: string;
   pincode: string;
@@ -35,7 +36,6 @@ export default function RegistrationForm() {
     }
   });
 
-  // THIS IS THE UPDATED FUNCTION
   const onSubmit: SubmitHandler<FormInputs> = async (data) => {
     setIsSubmitting(true);
     setSubmitMessage('');
@@ -43,22 +43,16 @@ export default function RegistrationForm() {
     try {
       const response = await fetch('/api/register', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
 
       const result = await response.json();
-
       if (!response.ok) {
         throw new Error(result.message || 'Something went wrong');
       }
-
       setSubmitMessage('Submission successful! We truly appreciate your contribution.');
-
     } catch (error) {
-      // This is the updated, type-safe error handling
       if (error instanceof Error) {
         setSubmitMessage(`Error: ${error.message}`);
       } else {
@@ -75,7 +69,6 @@ export default function RegistrationForm() {
       <p className="text-center text-gray-400 mb-6">Fields marked with * are required.</p>
       
       <form noValidate onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        {/* All form fields remain the same as before... */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* First Name */}
           <div>
@@ -90,108 +83,37 @@ export default function RegistrationForm() {
             <input id="lName" {...register("lName")} className="mt-1 block w-full input-style" />
           </div>
 
-          {/* Gender */}
+          {/* Email */}
           <div>
-            <label htmlFor="gender" className="block text-sm font-medium text-gray-300">Gender *</label>
-            <select id="gender" {...register("gender", { required: "Please select a gender." })} className="mt-1 block w-full input-style">
-              <option value="">Select...</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-            {errors.gender && <p className="mt-1 text-sm text-red-400">{errors.gender.message}</p>}
+            <label htmlFor="email" className="block text-sm font-medium text-gray-300">Email *</label>
+            <input id="email" type="email" {...register("email", { required: "Email is required.", pattern: { value: /^\S+@\S+$/i, message: "Invalid email address." } })} className="mt-1 block w-full input-style" />
+            {errors.email && <p className="mt-1 text-sm text-red-400">{errors.email.message}</p>}
           </div>
 
-          {/* Date of Birth */}
+          {/* Phone */}
           <div>
-            <label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-300">Date of Birth *</label>
-            <input type="date" id="dateOfBirth" {...register("dateOfBirth", { required: "Date of Birth is required." })} className="mt-1 block w-full input-style" />
-            {errors.dateOfBirth && <p className="mt-1 text-sm text-red-400">{errors.dateOfBirth.message}</p>}
+            <label htmlFor="phone" className="block text-sm font-medium text-gray-300">Phone *</label>
+            <input id="phone" type="tel" {...register("phone", { required: "Phone number is required." })} className="mt-1 block w-full input-style" />
+            {errors.phone && <p className="mt-1 text-sm text-red-400">{errors.phone.message}</p>}
           </div>
 
-          {/* Pincode */}
-          <div>
-            <label htmlFor="pincode" className="block text-sm font-medium text-gray-300">Pincode *</label>
-            <input id="pincode" {...register("pincode", { required: "Pincode is required." })} className="mt-1 block w-full input-style" />
-            {errors.pincode && <p className="mt-1 text-sm text-red-400">{errors.pincode.message}</p>}
-          </div>
-
-          {/* Country */}
-          <div>
-            <label htmlFor="country" className="block text-sm font-medium text-gray-300">Country</label>
-            <input id="country" {...register("country")} readOnly className="mt-1 block w-full input-style bg-gray-600" />
-          </div>
-
-          {/* State */}
-          <div>
-            <label htmlFor="state" className="block text-sm font-medium text-gray-300">State *</label>
-            <input id="state" {...register("state", { required: "State is required." })} className="mt-1 block w-full input-style" />
-            {errors.state && <p className="mt-1 text-sm text-red-400">{errors.state.message}</p>}
-          </div>
-
-          {/* District */}
-          <div>
-            <label htmlFor="district" className="block text-sm font-medium text-gray-300">District *</label>
-            <input id="district" {...register("district", { required: "District is required." })} className="mt-1 block w-full input-style" />
-            {errors.district && <p className="mt-1 text-sm text-red-400">{errors.district.message}</p>}
-          </div>
-          
-          {/* City / Town */}
-          <div>
-            <label htmlFor="city" className="block text-sm font-medium text-gray-300">City / Town *</label>
-            <input id="city" {...register("city", { required: "City / Town is required." })} className="mt-1 block w-full input-style" />
-            {errors.city && <p className="mt-1 text-sm text-red-400">{errors.city.message}</p>}
-          </div>
-
-          {/* Police Station */}
-          <div>
-            <label htmlFor="policeStation" className="block text-sm font-medium text-gray-300">Police Station</label>
-            <input id="policeStation" {...register("policeStation")} className="mt-1 block w-full input-style" />
-          </div>
-
-          {/* Post Office */}
-          <div>
-            <label htmlFor="postOffice" className="block text-sm font-medium text-gray-300">Post Office</label>
-            <input id="postOffice" {...register("postOffice")} className="mt-1 block w-full input-style" />
-          </div>
-
-          {/* Locality / Area */}
-          <div>
-            <label htmlFor="locality" className="block text-sm font-medium text-gray-300">Locality / Area *</label>
-            <input id="locality" {...register("locality", { required: "Locality / Area is required." })} className="mt-1 block w-full input-style" />
-            {errors.locality && <p className="mt-1 text-sm text-red-400">{errors.locality.message}</p>}
-          </div>
-
-          {/* Landmark */}
-          <div className="md:col-span-2">
-            <label htmlFor="landmark" className="block text-sm font-medium text-gray-300">Landmark</label>
-            <input id="landmark" {...register("landmark")} className="mt-1 block w-full input-style" />
-          </div>
+          {/* Other fields... */}
+          <div><label htmlFor="gender" className="block text-sm font-medium text-gray-300">Gender *</label><select id="gender" {...register("gender", { required: "Please select a gender." })} className="mt-1 block w-full input-style"><option value="">Select...</option><option value="male">Male</option><option value="female">Female</option><option value="other">Other</option></select>{errors.gender && <p className="mt-1 text-sm text-red-400">{errors.gender.message}</p>}</div>
+          <div><label htmlFor="dateOfBirth" className="block text-sm font-medium text-gray-300">Date of Birth *</label><input type="date" id="dateOfBirth" {...register("dateOfBirth", { required: "Date of Birth is required." })} className="mt-1 block w-full input-style" />{errors.dateOfBirth && <p className="mt-1 text-sm text-red-400">{errors.dateOfBirth.message}</p>}</div>
+          <div><label htmlFor="pincode" className="block text-sm font-medium text-gray-300">Pincode *</label><input id="pincode" {...register("pincode", { required: "Pincode is required." })} className="mt-1 block w-full input-style" />{errors.pincode && <p className="mt-1 text-sm text-red-400">{errors.pincode.message}</p>}</div>
+          <div><label htmlFor="country" className="block text-sm font-medium text-gray-300">Country</label><input id="country" {...register("country")} readOnly className="mt-1 block w-full input-style bg-gray-600" /></div>
+          <div><label htmlFor="state" className="block text-sm font-medium text-gray-300">State *</label><input id="state" {...register("state", { required: "State is required." })} className="mt-1 block w-full input-style" />{errors.state && <p className="mt-1 text-sm text-red-400">{errors.state.message}</p>}</div>
+          <div><label htmlFor="district" className="block text-sm font-medium text-gray-300">District *</label><input id="district" {...register("district", { required: "District is required." })} className="mt-1 block w-full input-style" />{errors.district && <p className="mt-1 text-sm text-red-400">{errors.district.message}</p>}</div>
+          <div><label htmlFor="city" className="block text-sm font-medium text-gray-300">City / Town *</label><input id="city" {...register("city", { required: "City / Town is required." })} className="mt-1 block w-full input-style" />{errors.city && <p className="mt-1 text-sm text-red-400">{errors.city.message}</p>}</div>
+          <div><label htmlFor="policeStation" className="block text-sm font-medium text-gray-300">Police Station</label><input id="policeStation" {...register("policeStation")} className="mt-1 block w-full input-style" /></div>
+          <div><label htmlFor="postOffice" className="block text-sm font-medium text-gray-300">Post Office</label><input id="postOffice" {...register("postOffice")} className="mt-1 block w-full input-style" /></div>
+          <div><label htmlFor="locality" className="block text-sm font-medium text-gray-300">Locality / Area *</label><input id="locality" {...register("locality", { required: "Locality / Area is required." })} className="mt-1 block w-full input-style" />{errors.locality && <p className="mt-1 text-sm text-red-400">{errors.locality.message}</p>}</div>
+          <div className="md:col-span-2"><label htmlFor="landmark" className="block text-sm font-medium text-gray-300">Landmark</label><input id="landmark" {...register("landmark")} className="mt-1 block w-full input-style" /></div>
         </div>
-
-        {/* Terms and Service */}
-        <div className="flex items-center">
-          <input 
-            id="agreeToTerms" 
-            type="checkbox" 
-            {...register("agreeToTerms", { required: "You must agree to the terms and services." })} 
-            className="h-4 w-4 rounded border-gray-500 bg-gray-700 text-blue-600 focus:ring-blue-500"
-          />
-          <label htmlFor="agreeToTerms" className="ml-2 block text-sm text-gray-300">
-            I agree to the <a href="#" className="underline">Terms of Service and Privacy Policy</a> and consent to receive communications from Panacco.
-          </label>
-        </div>
+        <div className="flex items-center"><input id="agreeToTerms" type="checkbox" {...register("agreeToTerms", { required: "You must agree to the terms and services." })} className="h-4 w-4 rounded border-gray-500 bg-gray-700 text-blue-600 focus:ring-blue-500" /><label htmlFor="agreeToTerms" className="ml-2 block text-sm text-gray-300">I agree to the <a href="#" className="underline">Terms of Service and Privacy Policy</a> and consent to receive communications from Panacco.</label></div>
         {errors.agreeToTerms && <p className="mt-1 text-sm text-red-400">{errors.agreeToTerms.message}</p>}
-        
-        {/* Submit Button */}
-        <div>
-          <button type="submit" disabled={isSubmitting} className="w-full submit-button-style disabled:bg-gray-500">
-            {isSubmitting ? 'Submitting...' : 'Submit Information'}
-          </button>
-        </div>
-
-        {/* Submission Message */}
-        {submitMessage && <p className="text-center text-green-400">{submitMessage}</p>}
+        <div><button type="submit" disabled={isSubmitting} className="w-full submit-button-style disabled:bg-gray-500">{isSubmitting ? 'Submitting...' : 'Submit Information'}</button></div>
+        {submitMessage && <p className={`text-center ${submitMessage.startsWith('Error') ? 'text-red-400' : 'text-green-400'}`}>{submitMessage}</p>}
       </form>
     </div>
   );
